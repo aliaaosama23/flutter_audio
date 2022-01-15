@@ -6,12 +6,10 @@ class MusicalCard extends StatefulWidget {
     Key? key,
     required this.cardColor,
     required this.cardNumber,
-    // required this.fileDuration,
   }) : super(key: key);
 
   final Color cardColor;
   final int cardNumber;
-  //final double fileDuration;
   static const IconData cardIconNotPressed = Icons.play_arrow;
   static const IconData cardIconPressed = Icons.stop;
 
