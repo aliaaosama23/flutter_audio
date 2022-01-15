@@ -2,11 +2,16 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class MusicalCard extends StatefulWidget {
-  MusicalCard({Key? key, required this.cardColor, required this.cardNumber})
-      : super(key: key);
+  const MusicalCard({
+    Key? key,
+    required this.cardColor,
+    required this.cardNumber,
+    // required this.fileDuration,
+  }) : super(key: key);
 
   final Color cardColor;
   final int cardNumber;
+  //final double fileDuration;
   static const IconData cardIconNotPressed = Icons.play_arrow;
   static const IconData cardIconPressed = Icons.stop;
 
@@ -18,25 +23,26 @@ class _MusicalCardState extends State<MusicalCard> {
   AudioPlayer audioPlayer = AudioPlayer();
   AudioCache audioCache = AudioCache();
   PlayerState playerState = PlayerState.PAUSED;
-  final double _currentSliderValue = 0.0;
-  Duration duration = const Duration();
-  Duration position = const Duration();
+  Duration _duration = const Duration();
+  Duration _position = const Duration(seconds: 0);
   @override
   void initState() {
     super.initState();
     audioCache = AudioCache(fixedPlayer: audioPlayer);
+
     audioPlayer.onDurationChanged.listen((Duration d) {
       setState(() {
-        print('Max duration: ${d.inSeconds}');
-        duration = d;
+        _duration = d;
       });
     });
+
     audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      print('Current position: $p');
-      position = p;
+      setState(() {
+        _position = p;
+      });
     });
+
     audioPlayer.onPlayerStateChanged.listen((PlayerState s) {
-      print('Current player state: $s');
       setState(() {
         playerState = s;
       });
@@ -52,18 +58,26 @@ class _MusicalCardState extends State<MusicalCard> {
   }
 
   playSound() async {
-    await audioCache.play('note${widget.cardNumber}.mp3');
-    print('current state is $playerState');
+    if (_position == Duration(seconds: 0)) {
+      await audioCache.play('note${widget.cardNumber}.mp3');
+    } else {
+      await audioPlayer.resume();
+    }
   }
 
   pauseSound() async {
     await audioPlayer.pause();
   }
 
+  changeToSeconds(int second) {
+    Duration newDuration = Duration(seconds: second);
+    audioPlayer.seek(newDuration);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFD39A),
+      backgroundColor: const Color(0xFF493A58), //Color(0xFFFFD39A),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -76,8 +90,6 @@ class _MusicalCardState extends State<MusicalCard> {
           ),
           IconButton(
             onPressed: () {
-              print('press item ${widget.cardNumber} ');
-              print('current state is $playerState');
               setState(() {
                 playerState == PlayerState.PLAYING ? pauseSound() : playSound();
               });
@@ -95,21 +107,16 @@ class _MusicalCardState extends State<MusicalCard> {
             child: Slider(
               activeColor: Colors.white,
               inactiveColor: Colors.black,
-              value: position.inSeconds.toDouble(),
-              max: position.inSeconds.toDouble(),
-              label: _currentSliderValue.round().toString(),
+              value: _position.inSeconds.toDouble(),
+              min: 0.0,
+              max: _duration.inSeconds.toDouble(),
               onChanged: (double value) {
                 setState(() {
-                  print('slider value is $value');
                   value = value;
+                  print('new potion on change is $value');
+                  changeToSeconds(value.toInt());
                 });
               },
-              // onChangeStart: (double startVal) {
-              //   print('slider start val is $startVal');
-              // },
-              // onChangeEnd: (double endVal) {
-              //   print('slider end val is $endVal');
-              // },
             ),
           ),
           Padding(
@@ -117,8 +124,8 @@ class _MusicalCardState extends State<MusicalCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(position.inSeconds.toString()),
-                Text(duration.inSeconds.toString())
+                Text(_position.inSeconds.toStringAsFixed(2)),
+                Text(_duration.inSeconds.toStringAsFixed(2))
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'app_widgets/musical_card.dart';
 
@@ -7,9 +8,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       //theme: ThemeData(primarySwatch: Colors.yellow),
-      home: const MusicApp(),
+      home: MusicApp(),
     );
   }
 }
@@ -20,22 +21,24 @@ class MusicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF9A0680),
+        backgroundColor: const Color(0xFF493A58), //Color(0xFF9A0680),
         appBar: AppBar(
           title: const Text(
             'قرآن بصوت اسلام صبحي',
             style: TextStyle(
               color: Color(0xFFFFF5E1),
-              fontSize: 25,
+              fontSize: 28,
             ),
           ),
-          backgroundColor: const Color(0xFF9A0680),
+          backgroundColor: const Color(0xFF493A58), // Color(0xFF9A0680),
         ),
-        body: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return QuranCard(cardNumber: index + 1);
-          },
-          itemCount: 7,
+        body: SafeArea(
+          child: ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return QuranCard(cardNumber: index + 1);
+            },
+            itemCount: 7,
+          ),
         )
         // Column(
         //   children:  [
@@ -51,6 +54,16 @@ class MusicApp extends StatelessWidget {
         );
   }
 }
+//
+// double fileDuration() {
+//   Duration duration = Duration(minutes: 0);
+//   AudioPlayer player = AudioPlayer();
+//   player.onDurationChanged.listen((Duration d) {
+//     print('Max duration: $d');
+//     duration = d;
+//   });
+//   return duration.inMinutes.toDouble();
+// }
 
 class QuranCard extends StatelessWidget {
   const QuranCard({Key? key, required this.cardNumber}) : super(key: key);
@@ -65,6 +78,7 @@ class QuranCard extends StatelessWidget {
             builder: (context) => MusicalCard(
               cardColor: Colors.black54,
               cardNumber: cardNumber,
+              //fileDuration: fileDuration(),
             ),
           ),
         );
