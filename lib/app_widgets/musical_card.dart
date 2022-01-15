@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +58,7 @@ class _MusicalCardState extends State<MusicalCard> {
   }
 
   playSound() async {
-    if (_position == Duration(seconds: 0)) {
+    if (_position == const Duration(seconds: 0)) {
       await audioCache.play('note${widget.cardNumber}.mp3');
     } else {
       await audioPlayer.resume();
@@ -86,47 +88,91 @@ class _MusicalCardState extends State<MusicalCard> {
               color: Colors.white,
             ),
           ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                playerState == PlayerState.PLAYING ? pauseSound() : playSound();
-              });
-            },
-            icon: Icon(
-              playerState == PlayerState.PLAYING
-                  ? Icons.pause_rounded
-                  : Icons.play_arrow_rounded,
-              size: 40,
-              color: const Color(0xFFFFFFFF),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _position.inSeconds.toStringAsFixed(2),
+                  style: const TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                  ),
+                ),
+                Text(
+                  _duration.inSeconds.toStringAsFixed(2),
+                  style: const TextStyle(
+                    color: Color(0xFFFFFFFF),
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                  ),
+                )
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          SliderTheme(
+            data: const SliderThemeData(
+              thumbColor: Color(0xFFBF96E3),
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 18),
+            ),
             child: Slider(
-              activeColor: Colors.white,
-              inactiveColor: Colors.black,
+              activeColor: const Color(0xFF9472B1),
+              inactiveColor: const Color(0xFF34293A),
+              //  thumbColor: const Color(0xFFBF96E3),
               value: _position.inSeconds.toDouble(),
               min: 0.0,
               max: _duration.inSeconds.toDouble(),
               onChanged: (double value) {
                 setState(() {
                   value = value;
-                  print('new potion on change is $value');
                   changeToSeconds(value.toInt());
                 });
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(_position.inSeconds.toStringAsFixed(2)),
-                Text(_duration.inSeconds.toStringAsFixed(2))
-              ],
-            ),
+          // IconButton(
+          //   iconSize: 60,
+          //   onPressed: () {
+          //     setState(() {
+          //       playerState == PlayerState.PLAYING ? pauseSound() : playSound();
+          //     });
+          //   },
+          //   icon: Icon(
+          //     playerState == PlayerState.PLAYING
+          //         ? Icons.pause_rounded
+          //         : Icons.play_arrow_rounded,
+          //     color: const Color(0xFFFFFFFF),
+          //   ),
+          // ),
+          const SizedBox(
+            height: 20,
           ),
+          RawMaterialButton(
+            onPressed: () {
+              setState(() {
+                playerState == PlayerState.PLAYING ? pauseSound() : playSound();
+              });
+            },
+            elevation: 2.0,
+            fillColor: const Color(0xFF9472B1),
+            constraints: const BoxConstraints(
+              maxHeight: 100,
+              maxWidth: 100,
+            ),
+            child: Icon(
+              playerState == PlayerState.PLAYING
+                  ? Icons.pause_rounded
+                  : Icons.play_arrow_rounded,
+              color: const Color(0xFFFFFFFF),
+              size: 40,
+            ),
+            padding: const EdgeInsets.all(20.0),
+            shape: const CircleBorder(),
+          )
         ],
       ),
     );
