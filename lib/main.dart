@@ -33,7 +33,7 @@ class MusicApp extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return QuranCard(cardNumber: index + 1);
           },
-          itemCount: 7,
+          itemCount: 14,
         ),
       ),
     );
