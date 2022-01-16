@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_utilities/constants.dart';
-import 'app_widgets/musical_card.dart';
+import 'app_widgets/quraan_card.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,13 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: MusicApp(),
+      home: QuraanApp(),
     );
   }
 }
 
-class MusicApp extends StatelessWidget {
-  const MusicApp({Key? key}) : super(key: key);
+class QuraanApp extends StatelessWidget {
+  const QuraanApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,40 +34,6 @@ class MusicApp extends StatelessWidget {
             return QuranCard(cardNumber: index + 1);
           },
           itemCount: 14,
-        ),
-      ),
-    );
-  }
-}
-
-class QuranCard extends StatelessWidget {
-  const QuranCard({Key? key, required this.cardNumber}) : super(key: key);
-  final int cardNumber;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MusicalCard(
-              cardNumber: cardNumber,
-            ),
-          ),
-        );
-      },
-      child: Container(
-        height: 90,
-        decoration: BoxDecoration(
-          color: kCardBackgroundColor,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        margin: const EdgeInsets.all(8),
-        child: Center(
-          child: Text(
-            'سورة النازعات جزء $cardNumber',
-            style: kCardTextStyle,
-          ),
         ),
       ),
     );
