@@ -1,16 +1,13 @@
-import 'dart:ui';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:musical_app/app_utilities/constants.dart';
 
 class MusicalCard extends StatefulWidget {
   const MusicalCard({
     Key? key,
-    required this.cardColor,
     required this.cardNumber,
   }) : super(key: key);
 
-  final Color cardColor;
   final int cardNumber;
   static const IconData cardIconNotPressed = Icons.play_arrow;
   static const IconData cardIconPressed = Icons.stop;
@@ -77,16 +74,13 @@ class _MusicalCardState extends State<MusicalCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF493A58), //Color(0xFFFFD39A),
+      backgroundColor: kScaffoldBackgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'سورة النازعات جزء ${widget.cardNumber}',
-            style: const TextStyle(
-              fontSize: 25,
-              color: Colors.white,
-            ),
+            style: kQuranTitleStyle,
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -95,34 +89,23 @@ class _MusicalCardState extends State<MusicalCard> {
               children: [
                 Text(
                   _position.inSeconds.toStringAsFixed(2),
-                  style: const TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
-                  ),
+                  style: kTimeStyle,
                 ),
                 Text(
                   _duration.inSeconds.toStringAsFixed(2),
-                  style: const TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.0,
-                  ),
+                  style: kTimeStyle,
                 )
               ],
             ),
           ),
           SliderTheme(
             data: const SliderThemeData(
-              thumbColor: Color(0xFFBF96E3),
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 18),
+              thumbColor: kSliderThumbColor,
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
             ),
             child: Slider(
-              activeColor: const Color(0xFF9472B1),
-              inactiveColor: const Color(0xFF34293A),
-              //  thumbColor: const Color(0xFFBF96E3),
+              activeColor: kActiveColor,
+              inactiveColor: kInActiveColor,
               value: _position.inSeconds.toDouble(),
               min: 0.0,
               max: _duration.inSeconds.toDouble(),
@@ -134,20 +117,6 @@ class _MusicalCardState extends State<MusicalCard> {
               },
             ),
           ),
-          // IconButton(
-          //   iconSize: 60,
-          //   onPressed: () {
-          //     setState(() {
-          //       playerState == PlayerState.PLAYING ? pauseSound() : playSound();
-          //     });
-          //   },
-          //   icon: Icon(
-          //     playerState == PlayerState.PLAYING
-          //         ? Icons.pause_rounded
-          //         : Icons.play_arrow_rounded,
-          //     color: const Color(0xFFFFFFFF),
-          //   ),
-          // ),
           const SizedBox(
             height: 20,
           ),
@@ -158,7 +127,7 @@ class _MusicalCardState extends State<MusicalCard> {
               });
             },
             elevation: 2.0,
-            fillColor: const Color(0xFF9472B1),
+            fillColor: kActiveColor,
             constraints: const BoxConstraints(
               maxHeight: 100,
               maxWidth: 100,
@@ -167,7 +136,7 @@ class _MusicalCardState extends State<MusicalCard> {
               playerState == PlayerState.PLAYING
                   ? Icons.pause_rounded
                   : Icons.play_arrow_rounded,
-              color: const Color(0xFFFFFFFF),
+              color: kWhiteColor,
               size: 40,
             ),
             padding: const EdgeInsets.all(20.0),

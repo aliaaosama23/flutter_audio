@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_utilities/constants.dart';
 import 'app_widgets/musical_card.dart';
 
 void main() => runApp(const MyApp());
@@ -19,16 +20,13 @@ class MusicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF493A58),
+      backgroundColor: kScaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text(
           'قرآن بصوت اسلام صبحي',
-          style: TextStyle(
-            color: Color(0xFFFFF5E1),
-            fontSize: 28,
-          ),
+          style: kAppBarTextStyle,
         ),
-        backgroundColor: const Color(0xFF493A58),
+        backgroundColor: kScaffoldBackgroundColor,
       ),
       body: SafeArea(
         child: ListView.builder(
@@ -53,7 +51,6 @@ class QuranCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => MusicalCard(
-              cardColor: Colors.black54,
               cardNumber: cardNumber,
             ),
           ),
@@ -62,17 +59,14 @@ class QuranCard extends StatelessWidget {
       child: Container(
         height: 90,
         decoration: BoxDecoration(
-          color: const Color(0xFFFFD39A),
+          color: kCardBackgroundColor,
           borderRadius: BorderRadius.circular(8),
         ),
         margin: const EdgeInsets.all(8),
         child: Center(
           child: Text(
             'سورة النازعات جزء $cardNumber',
-            style: const TextStyle(
-              fontSize: 25,
-              color: Color(0xFF9A0680),
-            ),
+            style: kCardTextStyle,
           ),
         ),
       ),
