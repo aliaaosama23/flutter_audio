@@ -39,6 +39,8 @@ class _MusicalCardState extends State<MusicalCard> {
       });
     });
 
+    audioPlayer.setUrl('note${widget.cardNumber}.mp3');
+
     audioPlayer.onPlayerStateChanged.listen((PlayerState s) {
       setState(() {
         playerState = s;
