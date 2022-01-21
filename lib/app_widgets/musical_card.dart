@@ -57,7 +57,8 @@ class _MusicalCardState extends State<MusicalCard> {
   }
 
   playSound() async {
-    if (_position == const Duration(seconds: 0)) {
+    if (_position == const Duration(seconds: 0) ||
+        playerState == PlayerState.COMPLETED) {
       await audioCache.play('note${widget.cardNumber}.mp3');
       // await audioCache.play(
       //     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
