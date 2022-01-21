@@ -1,6 +1,10 @@
-# music_app
+# quraan audio app
 
-A new Flutter project.
+This project is an app with flutter to build quran audio app 
+with sounds of islam sobhi sound
+
+May allah bless this work
+
 
 ## Getting Started
 
