@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_utilities/constants.dart';
-import 'app_widgets/quraan_card.dart';
+import 'app_widgets/quraa_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -13,9 +12,7 @@ void main() async {
     ],
   );
 
-  runApp(
-    MyApp(),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,32 +34,6 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kScaffoldBackgroundColor,
         ),
         home: const QuraanApp(),
-      ),
-    );
-  }
-}
-
-class QuraanApp extends StatelessWidget {
-  const QuraanApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      //backgroundColor: kScaffoldBackgroundColor,
-      appBar: AppBar(
-        title: const Text(
-          'قرآن بصوت اسلام صبحي',
-          // style: kAppBarTextStyle,
-        ),
-        //backgroundColor: kScaffoldBackgroundColor,
-      ),
-      body: SafeArea(
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return QuranCard(cardNumber: index + 1);
-          },
-          itemCount: 14,
-        ),
       ),
     );
   }
