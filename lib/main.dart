@@ -16,8 +16,18 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: QuraanApp(),
+    return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          foregroundColor: Color(0xFFFFF5E1),
+          backgroundColor: Color(0xFF493A58),
+          titleTextStyle: TextStyle(
+            fontSize: 20.0,
+            fontFamily: 'Cairo',
+          ),
+        ),
+      ),
+      home: const QuraanApp(),
     );
   }
 }
@@ -32,9 +42,9 @@ class QuraanApp extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'قرآن بصوت اسلام صبحي',
-          style: kAppBarTextStyle,
+          // style: kAppBarTextStyle,
         ),
-        backgroundColor: kScaffoldBackgroundColor,
+        //backgroundColor: kScaffoldBackgroundColor,
       ),
       body: SafeArea(
         child: ListView.builder(
