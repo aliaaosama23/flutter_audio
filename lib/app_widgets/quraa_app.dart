@@ -7,11 +7,7 @@ class QuraanApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'قرآن بصوت اسلام صبحي',
-        ),
-      ),
+      appBar: AppBar(title: const Text('قرآن بصوت اسلام صبحي')),
       body: SafeArea(
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {

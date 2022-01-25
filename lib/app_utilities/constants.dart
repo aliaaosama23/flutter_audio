@@ -12,6 +12,7 @@ const TextStyle kCardTextStyle = TextStyle(
   color: Color(0xFF9A0680),
   fontFamily: 'Cairo',
 );
+
 const TextStyle kTimeStyle = TextStyle(
   color: Color(0xFFFFFFFF),
   fontSize: 15,
