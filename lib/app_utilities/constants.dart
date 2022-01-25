@@ -8,8 +8,9 @@ const Color kScaffoldBackgroundColor = Color(0xFF493A58);
 const Color kCardBackgroundColor = Color(0xFFFFD39A);
 
 const TextStyle kCardTextStyle = TextStyle(
-  fontSize: 25,
+  fontSize: 20,
   color: Color(0xFF9A0680),
+  fontFamily: 'Cairo',
 );
 const TextStyle kTimeStyle = TextStyle(
   color: Color(0xFFFFFFFF),
@@ -20,7 +21,8 @@ const TextStyle kTimeStyle = TextStyle(
 
 const TextStyle kQuranTitleStyle = TextStyle(
   color: kWhiteColor,
-  fontSize: 25,
+  fontSize: 20,
+  fontFamily: 'Cairo',
 );
 
 const TextStyle kAppBarTextStyle = TextStyle(
