@@ -99,21 +99,18 @@ class _MusicalCardState extends State<MusicalCard>
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Hero(
-            tag: 'title',
-            child: AnimatedTextKit(
-              animatedTexts: [
-                TypewriterAnimatedText(
-                  '${LocaleKeys.SOURA_NAZAAT_JOSA.tr()}${widget.cardNumber}',
-                  textStyle: kQuranTitleStyle,
-                  speed: const Duration(milliseconds: 100),
-                ),
-              ],
-              totalRepeatCount: 4,
-              pause: const Duration(milliseconds: 1000),
-              displayFullTextOnTap: true,
-              stopPauseOnTap: true,
-            ),
+          AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText(
+                '${LocaleKeys.SOURA_NAZAAT_JOSA.tr()}${widget.cardNumber}',
+                textStyle: kQuranTitleStyle,
+                speed: const Duration(milliseconds: 100),
+              ),
+            ],
+            totalRepeatCount: 4,
+            pause: const Duration(milliseconds: 1000),
+            displayFullTextOnTap: true,
+            stopPauseOnTap: true,
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),

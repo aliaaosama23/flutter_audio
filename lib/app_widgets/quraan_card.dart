@@ -29,12 +29,9 @@ class QuranCard extends StatelessWidget {
         ),
         margin: const EdgeInsets.all(8),
         child: Center(
-          child: Hero(
-            tag: 'title',
-            child: Text(
-              '${LocaleKeys.SOURA_NAZAAT_JOSA.tr()} $cardNumber',
-              style: kCardTextStyle,
-            ),
+          child: Text(
+            '${LocaleKeys.SOURA_NAZAAT_JOSA.tr()} $cardNumber',
+            style: kCardTextStyle,
           ),
         ),
       ),
