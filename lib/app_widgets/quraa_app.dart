@@ -4,15 +4,9 @@ import 'package:musical_app/app_widgets/quraan_card.dart';
 import 'package:musical_app/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class QuraanApp extends StatefulWidget {
+class QuraanApp extends StatelessWidget {
   const QuraanApp({Key? key}) : super(key: key);
 
-  @override
-  State<QuraanApp> createState() => _QuraanAppState();
-}
-
-class _QuraanAppState extends State<QuraanApp> {
-  @override
   Widget build(BuildContext context) {
     print(context.locale.toString());
     return Scaffold(

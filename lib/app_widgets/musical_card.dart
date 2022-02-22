@@ -1,6 +1,9 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:musical_app/app_utilities/constants.dart';
+import 'package:musical_app/translations/locale_keys.g.dart';
 
 class MusicalCard extends StatefulWidget {
   const MusicalCard({
@@ -16,7 +19,10 @@ class MusicalCard extends StatefulWidget {
   State<MusicalCard> createState() => _MusicalCardState();
 }
 
-class _MusicalCardState extends State<MusicalCard> {
+class _MusicalCardState extends State<MusicalCard>
+    with SingleTickerProviderStateMixin {
+  //2- animation controller
+  late AnimationController controller;
   AudioPlayer audioPlayer = AudioPlayer();
   AudioCache audioCache = AudioCache();
   PlayerState playerState = PlayerState.PAUSED;
@@ -25,6 +31,19 @@ class _MusicalCardState extends State<MusicalCard> {
   @override
   void initState() {
     super.initState();
+
+    controller = AnimationController(
+      vsync: this, //1- make this state as a ticker
+      duration: const Duration(seconds: 1),
+      lowerBound: 50,
+      upperBound: 200,
+    );
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+      //3- animation value
+      print(controller.value);
+    });
     audioCache = AudioCache(fixedPlayer: audioPlayer);
 
     audioPlayer.onDurationChanged.listen((Duration d) {
@@ -60,9 +79,6 @@ class _MusicalCardState extends State<MusicalCard> {
     if (_position == const Duration(seconds: 0) ||
         playerState == PlayerState.COMPLETED) {
       await audioCache.play('note${widget.cardNumber}.mp3');
-
-      //   await audioPlayer.play(
-      //       'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
     } else {
       await audioPlayer.resume();
     }
@@ -83,10 +99,23 @@ class _MusicalCardState extends State<MusicalCard> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'سورة النازعات جزء ${widget.cardNumber}',
-            style: kQuranTitleStyle,
+          AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText(
+                '${LocaleKeys.SOURA_NAZAAT_JOSA.tr()}${widget.cardNumber}',
+                textStyle: kQuranTitleStyle,
+                speed: const Duration(milliseconds: 100),
+              ),
+            ],
+            totalRepeatCount: 4,
+            pause: const Duration(milliseconds: 1000),
+            displayFullTextOnTap: true,
+            stopPauseOnTap: true,
           ),
+          // Text(
+          //   '${LocaleKeys.SOURA_NAZAAT_JOSA.tr()}${widget.cardNumber}',
+          //   style: kQuranTitleStyle,
+          // ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
